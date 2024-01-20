@@ -28,3 +28,7 @@ const result = await pb.collection('posts').getList()
 return result
 }
 
+
+export const getImageUrl = ({collection,src, id}:{collection:string ,src:string, id:string}) =>{
+    return `https://pocketbase.hive.thebeijinho.com/api/files/${collection}/${id}/${src}?token=`
+}

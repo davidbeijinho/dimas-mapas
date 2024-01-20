@@ -6,7 +6,7 @@ export default function Posts({posts}: {posts: any[]}) {
 					{/* <!--1/3 col --> */}
 					
 					{/* <!--1/3 col --> */}
-					{posts.map(post=><PostCard key={post.id} title={post.title} short={post.short} id={post.id}/>
+					{posts.map(post=><PostCard key={post.id} title={post.title} short={post.short} collection={post.collectionId} src={post.image} id={post.id}/>
 						)}
 
 <div className="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink"></div>

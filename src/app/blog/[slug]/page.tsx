@@ -51,7 +51,7 @@ export default function Info({ params }: { params: { slug: string } }) {
       <div>
         <Nav />
         <Title title={point?.place_name} />
-        <Image />
+        <Image collection={post.collectionId} src={post.image} id={post.id}/>
         <Container pullUp={true}>
           <ContainerPullUp>
 

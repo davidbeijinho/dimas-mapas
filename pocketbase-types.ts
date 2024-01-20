@@ -51,6 +51,7 @@ export type PlacesRecord = {
 
 export type PostsRecord = {
 	content?: HTMLString
+	image?: string
 	title?: string
 }
 

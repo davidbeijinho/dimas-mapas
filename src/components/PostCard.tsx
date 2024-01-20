@@ -1,8 +1,10 @@
-export default function PostCard({title, short,id}:{title:string, short:string, id:string}) {
+import {getImageUrl} from "@/lib/pocketbase";
+export default function PostCard({title, short,id,src,collection}:{src:string, collection:string,title:string, short:string, id:string}) {
+	const url = getImageUrl({collection,src, id})
     return (<div className="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
 						<div className="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
 							<a href={`blog/${id}`} className="flex flex-wrap no-underline hover:no-underline">
-								<img src="https://source.unsplash.com/collection/225/800x600" className="h-64 w-full rounded-t pb-6" />
+								<img src={url} className="h-64 w-full rounded-t pb-6" />
 								{/* <p className="w-full text-gray-600 text-xs md:text-sm px-6">GETTING STARTED</p> */}
 								<div className="w-full font-bold text-xl text-gray-900 px-6">{title}</div>
 								<p className="text-gray-800 font-serif text-base px-6 mb-5">
