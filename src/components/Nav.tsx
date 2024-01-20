@@ -5,7 +5,7 @@ export default function Nav() {
         <div className="flex text-white font-extrabold">
           <a
             className="flex text-white text-base no-underline hover:text-white hover:no-underline"
-            href="#"
+            href="/"
           >
             👻{" "}
             <span className="hidden w-0 md:w-auto md:block pl-1">
@@ -13,25 +13,25 @@ export default function Nav() {
             </span>
           </a>
         </div>
-        {/* <div className="flex pl-4 text-sm">
-          <ul className="list-reset flex justify-between flex-1 md:flex-none items-center">
+        <div className="flex pl-4 text-sm">
+          <ul className="list-reset flex  justify-between flex-1 md:flex-none items-center">
             <li className="mr-2">
               <a
                 className="inline-block py-2 px-2 text-white no-underline"
-                href="index.html"
+                href="/"
               >
-                HOME
+                Map
               </a>
             </li>
             <li className="mr-2">
               <a
                 className="inline-block text-indigo-200 no-underline hover:text-gray-100 hover:text-underline py-2 px-2"
-                href="#"
+                href="/blog"
               >
-                LINK
+                Blog
               </a>
             </li>
-            <li className="mr-2">
+            {/* <li className="mr-2">
               <a
                 className="inline-block text-indigo-200 no-underline hover:text-indigo-100 hover:text-underline py-2 px-2"
                 href="#"
@@ -46,9 +46,9 @@ export default function Nav() {
               >
                 LINK
               </a>
-            </li>
+            </li> */}
           </ul>
-        </div> */}
+        </div>
       </div>
     </nav>
   );

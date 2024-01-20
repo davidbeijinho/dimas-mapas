@@ -1,47 +1,37 @@
-'use client'
+"use client";
 import MapGallery from "@/components/MapGallery";
 import Nav from "@/components/Nav";
-import Image from "@/components/Image";
-import Title from "@/components/Title";
-import React, { useEffect, useState } from 'react';
-import Container from "@/components/Container";
+import React, { useEffect, useState } from "react";
+import ContainerWrap from "@/components/ContainerWrap";
+import { getPoints } from "@/lib/pocketbase";
 
 export default function Home() {
-  
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any>([]);
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch('/points/api/');
-      const data = await response.json();
-      setData(data);
+      try {
+        const response = await getPoints();
+        
+        setData(response);
+        
+      } catch (error) {
+        
+      }
     }
 
     fetchData();
   }, []);
-  console.log(data)
-  if (data.length) {
+  console.log(data);
+  if (data?.items?.length) {
     return (
       <div>
         <Nav />
-        {/* <Title /> */}
-        {/* <Image /> */}
-        {/* <Post /> */}
-        <Container>
-
-      {/* <ul>
-          {data?.map((point) => (
-            <li key={point.name}>{point.name}</li>
-            ))}
-          </ul> */}
-        <MapGallery points={data}/>
-          </Container>
+        <ContainerWrap>
+          <MapGallery points={data.items} />
+        </ContainerWrap>
       </div>
     );
   }
-  return (
-    <div>
-      LOADING
-    </div>
-  )
+  return <div>LOADING</div>;
 }

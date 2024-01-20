@@ -1,29 +1,50 @@
 import React, {useState} from 'react';
 import {
-  AdvancedMarker,
   InfoWindow,
-  useAdvancedMarkerRef
+  useMarkerRef,
+  // AdvancedMarker,
+  // useAdvancedMarkerRef,
+  Marker
 } from '@vis.gl/react-google-maps';
 
 export default function Point  ({
   text,
   coords,
 }: {
-  coords: String;
-  text: String;
+  coords: string;
+  text: string;
 }) {
-  const toPosition = (str: String) => {
+  const toPosition = (str: string) => {
     return {
       lat: parseFloat(str.split(",")[0]),
       lng: parseFloat(str.split(",")[1]),
     };
   };
+  // const [infowindowOpen, setInfowindowOpen] = useState(false);
+  // const [markerRef, marker] = useAdvancedMarkerRef();
+
   const [infowindowOpen, setInfowindowOpen] = useState(false);
-  const [markerRef, marker] = useAdvancedMarkerRef();
+  const [markerRef, marker] = useMarkerRef();
 
   return (
     <>
-      <AdvancedMarker
+
+<Marker
+          ref={markerRef}
+          onClick={() => setInfowindowOpen(true)}
+          position={toPosition(coords)}
+        />
+
+        {infowindowOpen && (
+          <InfoWindow
+            anchor={marker}
+            maxWidth={200}
+            onCloseClick={() => setInfowindowOpen(false)}>
+             {text}
+          </InfoWindow>
+        )}
+
+      {/* <AdvancedMarker
         ref={markerRef}
         onClick={() => setInfowindowOpen(true)}
         position={toPosition(coords)}
@@ -36,7 +57,7 @@ export default function Point  ({
           onCloseClick={() => setInfowindowOpen(false)}>
           {text}
         </InfoWindow>
-      )}
+      )} */}
     </>
   );
 };

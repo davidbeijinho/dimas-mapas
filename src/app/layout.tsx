@@ -14,7 +14,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const extra = "bg-white font-sans leading-normal tracking-normal"
+  const extra = "bg-gray-200 font-sans leading-normal tracking-normal"
   return (
     <html lang="en">
       <body className={extra + ' '+ inter.className}>{children}</body>
