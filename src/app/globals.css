@@ -31,7 +31,7 @@ body {
     text-wrap: balance;
   }
 } */
-
+/*
 .smooth {
   transition: box-shadow 0.3s ease-in-out;
 }
@@ -54,8 +54,9 @@ body {
   ::-webkit-scrollbar-thumb:hover {
     background: #c4c4c4;
   }
-}
+}*/
 /*scroll to top*/
+/*
 .scroll-top {
   position: fixed;
   z-index: 50;
@@ -102,4 +103,4 @@ body {
 .scroll-top:hover .progress-circle path,
 .scroll-top:hover .icon-tabler-arrow-up {
   stroke: var(--ghost-accent-color);
-}
+}*/
