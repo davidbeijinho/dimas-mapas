@@ -14,9 +14,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const extra = "bg-white font-sans leading-normal tracking-normal"
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={extra + ' '+ inter.className}>{children}</body>
     </html>
   );
 }
