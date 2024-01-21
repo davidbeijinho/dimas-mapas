@@ -1,6 +1,6 @@
 import PostCard from "@/components/PostCard";
-
-export default function Posts({ posts }: { posts: any[] }) {
+import { PostsResponse } from "@/../pocketbase-types";
+export default function Posts({ posts }: { posts: PostsResponse[] }) {
   return (
     <div className="flex flex-wrap justify-between pt-12 -mx-6">
       {/* <!--1/3 col --> */}
@@ -10,9 +10,9 @@ export default function Posts({ posts }: { posts: any[] }) {
         <PostCard
           key={post.id}
           title={post.title}
-          short={post.short}
+          short={''}
           collection={post.collectionId}
-          src={post.image}
+          filename={post.image}
           id={post.id}
         />
       ))}

@@ -9,16 +9,14 @@ import {
 import Link from "next/link";
 import { toBlogSlug } from "@/lib/utils";
 
-export default function Point({
-  text,
-  coords,
-  id,
-  post,
+export default function MapPoint({
+  coordinates,
+  postId,
+  pointName,
 }: {
-  coords: string;
-  text: string;
-  id: string;
-  post?: string;
+  coordinates: string;
+  pointName: string;
+  postId?: string;
 }) {
   const toPosition = (str: string) => {
     return {
@@ -31,13 +29,13 @@ export default function Point({
 
   const [infowindowOpen, setInfowindowOpen] = useState(false);
   const [markerRef, marker] = useMarkerRef();
-  const link = toBlogSlug(post || "", text);
+  const link = toBlogSlug({id:postId || "", name:pointName});
   return (
     <>
       <Marker
         ref={markerRef}
         onClick={() => setInfowindowOpen(true)}
-        position={toPosition(coords)}
+        position={toPosition(coordinates)}
       />
 
       {infowindowOpen && (
@@ -46,8 +44,8 @@ export default function Point({
           maxWidth={200}
           onCloseClick={() => setInfowindowOpen(false)}
         >
-          {text}
-          {post && (
+          {pointName}
+          {postId && (
             <Link href={link} className="text-blue-600 ">
               +info{" "}
             </Link>

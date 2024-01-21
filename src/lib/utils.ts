@@ -4,6 +4,6 @@ export const slugToId = (slug: string) => {
   return slug.split("-")[0];
 };
 
-export const toBlogSlug = (name: string, id: string) => {
+export const toBlogSlug = ({id,name}: {id:string, name:string}) => {
   return `/blog/${id}-${slugify(name)}`;
 };

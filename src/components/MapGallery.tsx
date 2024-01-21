@@ -3,24 +3,10 @@
 import { APIProvider, Map } from "@vis.gl/react-google-maps";
 import { mapStyle } from "@/styles/map";
 import MapPoint from "@/components/MapPoint";
+import { PlacesRecord } from "@/../pocketbase-types";
+import { API_KEY, MAP_CENTER, MAP_ZOOM } from "@/lib/configs";
 
-const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_API_KEY || "";
-
-export interface Point {
-  id: string;
-  place_name: string;
-  cordenadas: string;
-  post?: string;
-}
-
-export interface MapGalleryProps {
-  points: Point[];
-}
-
-export default function MapGallery({ points }: MapGalleryProps) {
-  const position = { lat: 53.54992, lng: 10.00678 };
-  const zoom = 3;
-
+export default function MapGallery({ points }: { points: PlacesRecord[] }) {
   return (
     <div
       style={{
@@ -34,18 +20,21 @@ export default function MapGallery({ points }: MapGalleryProps) {
         <Map
           styles={mapStyle.styles}
           mapTypeId={mapStyle.mapTypeId}
-          center={position}
-          zoom={zoom}
+          center={MAP_CENTER}
+          zoom={MAP_ZOOM}
         >
-          {points?.map((point) => (
-            <MapPoint
-              key={point.place_name}
-              coords={point.cordenadas}
-              text={point.place_name}
-              id={point.id}
-              post={point.post}
-            />
-          ))}
+          {points?.map((point) =>
+            point.coordinates ? (
+              <MapPoint
+                key={point.name}
+                coordinates={point.coordinates}
+                pointName={point.name}
+                postId={point.post}
+              />
+            ) : (
+              <></>
+            ),
+          )}
         </Map>
       </APIProvider>
     </div>

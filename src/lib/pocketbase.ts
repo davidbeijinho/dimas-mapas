@@ -6,8 +6,9 @@ import {
 } from "@/../pocketbase-types";
 import PocketBase from "pocketbase";
 
+const URL = "https://pocketbase.hive.thebeijinho.com"
 const pb = new PocketBase(
-  "https://pocketbase.hive.thebeijinho.com",
+  URL,
 ) as TypedPocketBase;
 
 export const getPoints = async () => {
@@ -36,12 +37,18 @@ export const getPosts = async () => {
 
 export const getImageUrl = ({
   collection,
-  src,
-  id,
+  record,
+  filename,
 }: {
   collection: string;
-  src: string;
-  id: string;
+  record: string;
+  filename: string;
 }) => {
-  return `https://pocketbase.hive.thebeijinho.com/api/files/${collection}/${id}/${src}?token=`;
+  //http://127.0.0.1:8090/api/files/COLLECTION_ID_OR_NAME/RECORD_ID/FILENAME
+
+
+  // const url = pb.files.getUrl(record, firstFilename, {'thumb': '100x250'});
+  // return url
+  // ?token=
+  return `${URL}/api/files/${collection}/${record}/${filename}`;
 };

@@ -1,28 +1,35 @@
 import Image from "next/image";
 import { getImageUrl } from "@/lib/pocketbase";
+import { toBlogSlug } from "@/lib/utils";
 export default function PostCard({
   title,
   short,
   id,
-  src,
+  filename,
   collection,
 }: {
-  src: string;
+  filename: string;
   collection: string;
   title: string;
   short: string;
   id: string;
 }) {
-  const url = getImageUrl({ collection, src, id });
+  const url = getImageUrl({ collection, filename, record: id });
+  const href = toBlogSlug({
+    id: id,
+    name: title
+  })
   return (
     <div className="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
       <div className="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
         <a
-          href={`blog/${id}`}
+          href={href}
           className="flex flex-wrap no-underline hover:no-underline"
         >
           <Image
             src={url}
+            width={300}
+            height={300}
             className="h-64 w-full rounded-t pb-6"
             alt="location image"
           />

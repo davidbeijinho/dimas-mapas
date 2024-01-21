@@ -2,14 +2,14 @@ import { getImageUrl } from "@/lib/pocketbase";
 
 export default function PostImage({
   collection,
-  src,
+  filename,
   id,
 }: {
   collection: string;
-  src: string;
+  filename: string;
   id: string;
 }) {
-  const url = getImageUrl({ collection, src, id });
+  const url = getImageUrl({ collection, filename, record:id });
   return (
     // <!--image-->
     <div

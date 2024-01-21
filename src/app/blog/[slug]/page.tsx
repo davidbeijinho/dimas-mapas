@@ -3,7 +3,7 @@ import Post from "@/components/Post";
 import Nav from "@/components/Nav";
 import PostImage from "@/components/PostImage";
 import Title from "@/components/Title";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { getPointByPostId, getPost } from "@/lib/pocketbase";
 import ContainerPullUp from "@/components/ContainerPull";
 import { slugToId } from "@/lib/utils";
@@ -42,18 +42,16 @@ export default function Info({ params }: { params: { slug: string } }) {
 
     fetchPoint();
   }, [params.slug]);
-
-  const hasData = post && point && point?.place_name;
-
+  const hasData = useMemo(() => post && point && point?.name, [point, post]);
   return (
     <>
       <Nav />
       {hasData ? (
         <>
-          <Title title={point?.place_name} />
+          <Title title={point?.name} />
           <PostImage
             collection={post.collectionId}
-            src={post.image}
+            filename={post.image}
             id={post.id}
           />
           <ContainerPullUp>
