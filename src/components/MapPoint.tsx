@@ -1,16 +1,15 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import {
   InfoWindow,
   useMarkerRef,
   // AdvancedMarker,
   // useAdvancedMarkerRef,
-  Marker
-} from '@vis.gl/react-google-maps';
-import slugify from 'slugify'
+  Marker,
+} from "@vis.gl/react-google-maps";
+import Link from "next/link";
+import { toBlogSlug } from "@/lib/utils";
 
-import Link from 'next/link'
- 
-export default function Point  ({
+export default function Point({
   text,
   coords,
   id,
@@ -32,26 +31,29 @@ export default function Point  ({
 
   const [infowindowOpen, setInfowindowOpen] = useState(false);
   const [markerRef, marker] = useMarkerRef();
-  const link = `/blog/${post}-${slugify(text)}`
+  const link = toBlogSlug(post || "", text);
   return (
     <>
+      <Marker
+        ref={markerRef}
+        onClick={() => setInfowindowOpen(true)}
+        position={toPosition(coords)}
+      />
 
-<Marker
-          ref={markerRef}
-          onClick={() => setInfowindowOpen(true)}
-          position={toPosition(coords)}
-        />
-
-        {infowindowOpen && (
-          <InfoWindow
-            anchor={marker}
-            maxWidth={200}
-            onCloseClick={() => setInfowindowOpen(false)}>
-             
-             {text}
-             {post && <Link href={link} className='text-blue-600 '>+info </Link>}
-          </InfoWindow>
-        )}
+      {infowindowOpen && (
+        <InfoWindow
+          anchor={marker}
+          maxWidth={200}
+          onCloseClick={() => setInfowindowOpen(false)}
+        >
+          {text}
+          {post && (
+            <Link href={link} className="text-blue-600 ">
+              +info{" "}
+            </Link>
+          )}
+        </InfoWindow>
+      )}
 
       {/* <AdvancedMarker
         ref={markerRef}
@@ -69,4 +71,4 @@ export default function Point  ({
       )} */}
     </>
   );
-};
+}

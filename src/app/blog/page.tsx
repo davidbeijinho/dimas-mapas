@@ -16,18 +16,12 @@ export default function Info() {
 
     fetchData();
   }, []);
-  console.log({ posts });
-
-  if (posts?.items?.length) {
-    return (
-      <div>
-        <Nav />
-        <ContainerWrap>
-          <Posts posts={posts.items} />
-        </ContainerWrap>
-      </div>
-    );
-  } else {
-    return <p>Loading</p>;
-  }
+  return (
+    <>
+      <Nav />
+      <ContainerWrap>
+        {posts?.items?.length ? <Posts posts={posts.items} /> : "Loading"}
+      </ContainerWrap>
+    </>
+  );
 }

@@ -1,21 +1,28 @@
 import PostCard from "@/components/PostCard";
 
-export default function Posts({posts}: {posts: any[]}) {
-    return (<div className="flex flex-wrap justify-between pt-12 -mx-6">
+export default function Posts({ posts }: { posts: any[] }) {
+  return (
+    <div className="flex flex-wrap justify-between pt-12 -mx-6">
+      {/* <!--1/3 col --> */}
 
-					{/* <!--1/3 col --> */}
-					
-					{/* <!--1/3 col --> */}
-					{posts.map(post=><PostCard key={post.id} title={post.title} short={post.short} collection={post.collectionId} src={post.image} id={post.id}/>
-						)}
+      {/* <!--1/3 col --> */}
+      {posts.map((post) => (
+        <PostCard
+          key={post.id}
+          title={post.title}
+          short={post.short}
+          collection={post.collectionId}
+          src={post.image}
+          id={post.id}
+        />
+      ))}
 
-<div className="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink"></div>
-<div className="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink"></div>
-					{/* <!--1/3 col --> */}
+      <div className="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink"></div>
+      <div className="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink"></div>
+      {/* <!--1/3 col --> */}
 
-
-					{/* <!--1/2 col --> */}
-					{/* <div className="w-full md:w-1/2 p-6 flex flex-col flex-grow flex-shrink">
+      {/* <!--1/2 col --> */}
+      {/* <div className="w-full md:w-1/2 p-6 flex flex-col flex-grow flex-shrink">
 						<div className="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
 							<a href="#" className="flex flex-wrap no-underline hover:no-underline">
 								<img src="https://source.unsplash.com/collection/3657445/800x600" className="h-full w-full rounded-t pb-6" /> 
@@ -34,8 +41,8 @@ export default function Posts({posts}: {posts: any[]}) {
 						</div>
 					</div> */}
 
-					{/* <!--1/2 col --> */}
-					{/* <div className="w-full md:w-1/2 p-6 flex flex-col flex-grow flex-shrink">
+      {/* <!--1/2 col --> */}
+      {/* <div className="w-full md:w-1/2 p-6 flex flex-col flex-grow flex-shrink">
 						<div className="flex-1 flex-row bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
 							<a href="#" className="flex flex-wrap no-underline hover:no-underline">	
 								<img src="https://source.unsplash.com/collection/764827/800x600" className="h-full w-full rounded-t pb-6" />
@@ -54,10 +61,8 @@ export default function Posts({posts}: {posts: any[]}) {
 						</div>
 					</div> */}
 
-
-
-					{/* <!--2/3 col --> */}
-					{/* <div className="w-full md:w-2/3 p-6 flex flex-col flex-grow flex-shrink">
+      {/* <!--2/3 col --> */}
+      {/* <div className="w-full md:w-2/3 p-6 flex flex-col flex-grow flex-shrink">
 						<div className="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
 							<a href="#" className="flex flex-wrap no-underline hover:no-underline">	
 								<img src="https://source.unsplash.com/collection/325867/800x600" className="h-full w-full rounded-t pb-6" />
@@ -76,8 +81,8 @@ export default function Posts({posts}: {posts: any[]}) {
 						</div>
 					</div> */}
 
-					{/* <!--1/3 col --> */}
-					{/* <div className="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+      {/* <!--1/3 col --> */}
+      {/* <div className="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
 						<div className="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
 							<a href="#" className="flex flex-wrap no-underline hover:no-underline">
 								<img src="https://source.unsplash.com/collection/1118905/800x600" className="h-full w-full rounded-t pb-6" />
@@ -95,6 +100,6 @@ export default function Posts({posts}: {posts: any[]}) {
 							</div>
 						</div>
 					</div> */}
-
-			</div>)
+    </div>
+  );
 }

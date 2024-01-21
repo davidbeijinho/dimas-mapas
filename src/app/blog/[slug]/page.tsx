@@ -1,70 +1,68 @@
 "use client";
 import Post from "@/components/Post";
 import Nav from "@/components/Nav";
-import Image from "@/components/Image";
+import PostImage from "@/components/PostImage";
 import Title from "@/components/Title";
 import React, { useEffect, useState } from "react";
-import Container from "@/components/ContainerWrap";
-import {getPointByPostId, getPost} from "@/lib/pocketbase";
+import { getPointByPostId, getPost } from "@/lib/pocketbase";
 import ContainerPullUp from "@/components/ContainerPull";
+import { slugToId } from "@/lib/utils";
 
 export default function Info({ params }: { params: { slug: string } }) {
   const [post, setPost] = useState<any>({});
   const [point, setPoint] = useState<any>({});
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchPost() {
       try {
-        const response = await getPost({id: params.slug.split("-")[0]});
+        const response = await getPost({ id: slugToId(params.slug) });
         if (response) {
-
           setPost(response);
         }
-        
       } catch (error) {
-        
+        console.log("error", error);
       }
     }
 
-    fetchData();
-  }, []);
+    fetchPost();
+  }, [params.slug]);
   useEffect(() => {
-    async function fetchData() {
+    async function fetchPoint() {
       try {
-        
-        const response = await getPointByPostId({id:params.slug.split("-")[0]});
+        const response = await getPointByPostId({
+          id: slugToId(params.slug),
+        });
         if (response) {
-
           setPoint(response);
         }
       } catch (error) {
-        
+        console.log("error", error);
       }
     }
 
-    fetchData();
-  }, []);
-  console.log({post})
-  console.log({point})
-  if (post && point && point?.place_name) {
-    return (
-      <div>
-        <Nav />
-        <Title title={point?.place_name} />
-        <Image collection={post.collectionId} src={post.image} id={post.id}/>
-        <Container pullUp={true}>
-          <ContainerPullUp>
+    fetchPoint();
+  }, [params.slug]);
 
-          <Post content={post?.content} />
-          </ContainerPullUp>
+  const hasData = post && point && point?.place_name;
 
-          </Container>
-      </div>
-    );
-  }
   return (
-    <div>
-      LOADING
-    </div>
-  )
+    <>
+      <Nav />
+      {hasData ? (
+        <>
+          <Title title={point?.place_name} />
+          <PostImage
+            collection={post.collectionId}
+            src={post.image}
+            id={post.id}
+          />
+          <ContainerPullUp>
+            <Post content={post?.content} />
+          </ContainerPullUp>
+        </>
+      ) : (
+        "Loading"
+      )}
+    </>
+  );
 }

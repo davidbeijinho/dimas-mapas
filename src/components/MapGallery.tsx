@@ -1,13 +1,13 @@
 "use client";
 
-import { APIProvider, Map} from "@vis.gl/react-google-maps";
+import { APIProvider, Map } from "@vis.gl/react-google-maps";
 import { mapStyle } from "@/styles/map";
 import MapPoint from "@/components/MapPoint";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_API_KEY || "";
 
 export interface Point {
-  id: string,
+  id: string;
   place_name: string;
   cordenadas: string;
   post?: string;
@@ -38,7 +38,13 @@ export default function MapGallery({ points }: MapGalleryProps) {
           zoom={zoom}
         >
           {points?.map((point) => (
-            <MapPoint key={point.place_name} coords={point.cordenadas} text={point.place_name} id={point.id} post={point.post} />
+            <MapPoint
+              key={point.place_name}
+              coords={point.cordenadas}
+              text={point.place_name}
+              id={point.id}
+              post={point.post}
+            />
           ))}
         </Map>
       </APIProvider>

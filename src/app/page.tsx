@@ -12,26 +12,19 @@ export default function Home() {
     async function fetchData() {
       try {
         const response = await getPoints();
-        
+
         setData(response);
-        
-      } catch (error) {
-        
-      }
+      } catch (error) {}
     }
 
     fetchData();
   }, []);
-  console.log(data);
-  if (data?.items?.length) {
-    return (
-      <div>
-        <Nav />
-        <ContainerWrap>
-          <MapGallery points={data.items} />
-        </ContainerWrap>
-      </div>
-    );
-  }
-  return <div>LOADING</div>;
+  return (
+    <>
+      <Nav />
+      <ContainerWrap>
+        {data?.items?.length ? <MapGallery points={data.items} /> : "Loading"}
+      </ContainerWrap>
+    </>
+  );
 }

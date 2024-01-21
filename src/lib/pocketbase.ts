@@ -1,34 +1,47 @@
-import { TypedPocketBase, PlacesRecord, PostsRecord, PlacesResponse } from "@/../pocketbase-types"
-import PocketBase from 'pocketbase';
+import {
+  TypedPocketBase,
+  PlacesRecord,
+  PostsRecord,
+  PlacesResponse,
+} from "@/../pocketbase-types";
+import PocketBase from "pocketbase";
 
-const pb = new PocketBase('https://pocketbase.hive.thebeijinho.com') as TypedPocketBase;
+const pb = new PocketBase(
+  "https://pocketbase.hive.thebeijinho.com",
+) as TypedPocketBase;
 
+export const getPoints = async () => {
+  const result = await pb.collection("places").getList();
 
-export const getPoints = async ()=>{
-const result = await pb.collection('places').getList()
-
-return result
-}
+  return result;
+};
 //:Promise<PlacesRecord>
-export const getPointByPostId = async ({id}:{id:string}) =>{
-const result = await pb.collection('places').getFirstListItem(`post="${id}"`);
+export const getPointByPostId = async ({ id }: { id: string }) => {
+  const result = await pb.collection("places").getFirstListItem(`post="${id}"`);
 
-return result
-}
+  return result;
+};
 // :Promise<PostsRecord>
-export const getPost = async ({id}:{id:string})=>{
-const result = await pb.collection('posts').getOne(id)
+export const getPost = async ({ id }: { id: string }) => {
+  const result = await pb.collection("posts").getOne(id);
 
-return result
-}
+  return result;
+};
 
-export const getPosts = async ()=>{
-const result = await pb.collection('posts').getList()
+export const getPosts = async () => {
+  const result = await pb.collection("posts").getList();
 
-return result
-}
+  return result;
+};
 
-
-export const getImageUrl = ({collection,src, id}:{collection:string ,src:string, id:string}) =>{
-    return `https://pocketbase.hive.thebeijinho.com/api/files/${collection}/${id}/${src}?token=`
-}
+export const getImageUrl = ({
+  collection,
+  src,
+  id,
+}: {
+  collection: string;
+  src: string;
+  id: string;
+}) => {
+  return `https://pocketbase.hive.thebeijinho.com/api/files/${collection}/${id}/${src}?token=`;
+};
