@@ -11,11 +11,17 @@ import { toBlogSlug } from "@/lib/utils";
 
 export default function MapPoint({
   coordinates,
+  placeId,
+  placeName,
+  location,
+  author,
   postId,
-  pointName,
 }: {
+  author: string;
+  location: string;
   coordinates: string;
-  pointName: string;
+  placeName: string;
+  placeId: string;
   postId?: string;
 }) {
   const toPosition = (str: string) => {
@@ -29,7 +35,7 @@ export default function MapPoint({
 
   const [infowindowOpen, setInfowindowOpen] = useState(false);
   const [markerRef, marker] = useMarkerRef();
-  const link = toBlogSlug({id:postId || "", name:pointName});
+  const link = toBlogSlug({ id: placeId || "", name: placeName });
   return (
     <>
       <Marker
@@ -44,10 +50,16 @@ export default function MapPoint({
           maxWidth={200}
           onCloseClick={() => setInfowindowOpen(false)}
         >
-          {pointName}
+          <p>{placeName}</p>
+          <p className="text-sm">
+            <span className=" font-bold ">Arquitecto:</span> {author}
+          </p>
+          <p className="text-sm">
+            <span className=" font-bold ">Local:</span> {location}
+          </p>
           {postId && (
             <Link href={link} className="text-blue-600 ">
-              +info{" "}
+              +info
             </Link>
           )}
         </InfoWindow>

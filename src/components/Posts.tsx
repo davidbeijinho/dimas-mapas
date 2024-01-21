@@ -1,19 +1,38 @@
 import PostCard from "@/components/PostCard";
-import { PostsResponse } from "@/../pocketbase-types";
-export default function Posts({ posts }: { posts: PostsResponse[] }) {
+import {
+  AuthorsResponse,
+  LocationsResponse,
+  PlacesResponse,
+  PostsRecord,
+  PostsResponse,
+  TagsResponse,
+} from "@/../pocketbase-types";
+
+interface PostsProps extends PlacesResponse {
+  expand: {
+    tags: TagsResponse[];
+    post: PostsResponse;
+    location: LocationsResponse;
+    author: AuthorsResponse[];
+  };
+}
+
+export default function Posts({ places }: { places: PostsProps[] }) {
   return (
     <div className="flex flex-wrap justify-between pt-12 -mx-6">
       {/* <!--1/3 col --> */}
 
       {/* <!--1/3 col --> */}
-      {posts.map((post) => (
+      {places.map((place) => (
         <PostCard
-          key={post.id}
-          title={post.title}
-          short={''}
-          collection={post.collectionId}
-          filename={post.image}
-          id={post.id}
+          key={place.id}
+          title={place.name}
+          short={""}
+          collection={place.expand.post.collectionId}
+          filename={place.expand.post.image}
+          placeId={place.id}
+          postId={place.expand.post.id}
+          author={place.expand.author[0].name}
         />
       ))}
 

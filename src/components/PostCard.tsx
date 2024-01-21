@@ -4,21 +4,25 @@ import { toBlogSlug } from "@/lib/utils";
 export default function PostCard({
   title,
   short,
-  id,
+  postId,
+  placeId,
   filename,
   collection,
+  author,
 }: {
   filename: string;
   collection: string;
   title: string;
   short: string;
-  id: string;
+  placeId: string;
+  postId: string;
+  author: string;
 }) {
-  const url = getImageUrl({ collection, filename, record: id });
+  const url = getImageUrl({ collection, filename, record: postId });
   const href = toBlogSlug({
-    id: id,
-    name: title
-  })
+    id: placeId,
+    name: title,
+  });
   return (
     <div className="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
       <div className="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
@@ -33,7 +37,9 @@ export default function PostCard({
             className="h-64 w-full rounded-t pb-6"
             alt="location image"
           />
-          {/* <p className="w-full text-gray-600 text-xs md:text-sm px-6">GETTING STARTED</p> */}
+          <p className="w-full text-gray-600 text-xs md:text-sm px-6">
+            {author}
+          </p>
           <div className="w-full font-bold text-xl text-gray-900 px-6">
             {title}
           </div>

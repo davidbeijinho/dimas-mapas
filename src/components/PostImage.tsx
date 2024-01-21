@@ -9,7 +9,7 @@ export default function PostImage({
   filename: string;
   id: string;
 }) {
-  const url = getImageUrl({ collection, filename, record:id });
+  const url = getImageUrl({ collection, filename, record: id });
   return (
     // <!--image-->
     <div

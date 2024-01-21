@@ -3,10 +3,24 @@
 import { APIProvider, Map } from "@vis.gl/react-google-maps";
 import { mapStyle } from "@/styles/map";
 import MapPoint from "@/components/MapPoint";
-import { PlacesRecord } from "@/../pocketbase-types";
+import {
+  AuthorsResponse,
+  LocationsResponse,
+  PlacesResponse,
+  TagsResponse,
+} from "@/../pocketbase-types";
 import { API_KEY, MAP_CENTER, MAP_ZOOM } from "@/lib/configs";
 
-export default function MapGallery({ points }: { points: PlacesRecord[] }) {
+interface PlaceProps extends PlacesResponse {
+  expand: {
+    tags: TagsResponse[];
+    location: LocationsResponse;
+    author: AuthorsResponse[];
+  };
+}
+
+export default function MapGallery({ places }: { places: PlaceProps[] }) {
+  console.log(places);
   return (
     <div
       style={{
@@ -23,13 +37,16 @@ export default function MapGallery({ points }: { points: PlacesRecord[] }) {
           center={MAP_CENTER}
           zoom={MAP_ZOOM}
         >
-          {points?.map((point) =>
-            point.coordinates ? (
+          {places?.map((place) =>
+            place.coordinates ? (
               <MapPoint
-                key={point.name}
-                coordinates={point.coordinates}
-                pointName={point.name}
-                postId={point.post}
+                key={place.name}
+                coordinates={place.coordinates}
+                placeName={place.name}
+                placeId={place.id}
+                postId={place.post}
+                location={place.expand.location.name}
+                author={place.expand.author[0].name}
               />
             ) : (
               <></>

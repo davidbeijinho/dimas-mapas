@@ -7,8 +7,11 @@ import type { RecordService } from "pocketbase";
 
 export enum Collections {
   Authors = "authors",
+  Countries = "countries",
+  Locations = "locations",
   Places = "places",
   Posts = "posts",
+  Tags = "tags",
   Users = "users",
 }
 
@@ -40,11 +43,22 @@ export type AuthorsRecord = {
   name?: string;
 };
 
+export type CountriesRecord = {
+  name?: string;
+};
+
+export type LocationsRecord = {
+  country?: RecordIdString;
+  name?: string;
+};
+
 export type PlacesRecord = {
   author?: RecordIdString[];
   coordinates?: string;
+  location?: RecordIdString;
   name: string;
   post?: RecordIdString;
+  tags?: RecordIdString[];
   year_begin?: number;
   year_end?: number;
 };
@@ -55,6 +69,10 @@ export type PostsRecord = {
   title?: string;
 };
 
+export type TagsRecord = {
+  name?: string;
+};
+
 export type UsersRecord = {
   avatar?: string;
   name?: string;
@@ -63,9 +81,15 @@ export type UsersRecord = {
 // Response types include system fields and match responses from the PocketBase API
 export type AuthorsResponse<Texpand = unknown> = Required<AuthorsRecord> &
   BaseSystemFields<Texpand>;
+export type CountriesResponse<Texpand = unknown> = Required<CountriesRecord> &
+  BaseSystemFields<Texpand>;
+export type LocationsResponse<Texpand = unknown> = Required<LocationsRecord> &
+  BaseSystemFields<Texpand>;
 export type PlacesResponse<Texpand = unknown> = Required<PlacesRecord> &
   BaseSystemFields<Texpand>;
 export type PostsResponse<Texpand = unknown> = Required<PostsRecord> &
+  BaseSystemFields<Texpand>;
+export type TagsResponse<Texpand = unknown> = Required<TagsRecord> &
   BaseSystemFields<Texpand>;
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> &
   AuthSystemFields<Texpand>;
@@ -74,15 +98,21 @@ export type UsersResponse<Texpand = unknown> = Required<UsersRecord> &
 
 export type CollectionRecords = {
   authors: AuthorsRecord;
+  countries: CountriesRecord;
+  locations: LocationsRecord;
   places: PlacesRecord;
   posts: PostsRecord;
+  tags: TagsRecord;
   users: UsersRecord;
 };
 
 export type CollectionResponses = {
   authors: AuthorsResponse;
+  countries: CountriesResponse;
+  locations: LocationsResponse;
   places: PlacesResponse;
   posts: PostsResponse;
+  tags: TagsResponse;
   users: UsersResponse;
 };
 
@@ -91,7 +121,10 @@ export type CollectionResponses = {
 
 export type TypedPocketBase = PocketBase & {
   collection(idOrName: "authors"): RecordService<AuthorsResponse>;
+  collection(idOrName: "countries"): RecordService<CountriesResponse>;
+  collection(idOrName: "locations"): RecordService<LocationsResponse>;
   collection(idOrName: "places"): RecordService<PlacesResponse>;
   collection(idOrName: "posts"): RecordService<PostsResponse>;
+  collection(idOrName: "tags"): RecordService<TagsResponse>;
   collection(idOrName: "users"): RecordService<UsersResponse>;
 };

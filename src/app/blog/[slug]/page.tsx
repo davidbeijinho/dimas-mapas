@@ -4,20 +4,20 @@ import Nav from "@/components/Nav";
 import PostImage from "@/components/PostImage";
 import Title from "@/components/Title";
 import React, { useEffect, useState, useMemo } from "react";
-import { getPointByPostId, getPost } from "@/lib/pocketbase";
+import { getPlace } from "@/lib/pocketbase";
 import ContainerPullUp from "@/components/ContainerPull";
 import { slugToId } from "@/lib/utils";
 
 export default function Info({ params }: { params: { slug: string } }) {
-  const [post, setPost] = useState<any>({});
-  const [point, setPoint] = useState<any>({});
+  const [place, setPlace] = useState<any>({});
+  // const [point, setPoint] = useState<any>({});
 
   useEffect(() => {
     async function fetchPost() {
       try {
-        const response = await getPost({ id: slugToId(params.slug) });
+        const response = await getPlace({ id: slugToId(params.slug) });
         if (response) {
-          setPost(response);
+          setPlace(response);
         }
       } catch (error) {
         console.log("error", error);
@@ -26,36 +26,36 @@ export default function Info({ params }: { params: { slug: string } }) {
 
     fetchPost();
   }, [params.slug]);
-  useEffect(() => {
-    async function fetchPoint() {
-      try {
-        const response = await getPointByPostId({
-          id: slugToId(params.slug),
-        });
-        if (response) {
-          setPoint(response);
-        }
-      } catch (error) {
-        console.log("error", error);
-      }
-    }
+  // useEffect(() => {
+  //   async function fetchPoint() {
+  //     try {
+  //       const response = await getPointByPostId({
+  //         id: slugToId(params.slug),
+  //       });
+  //       if (response) {
+  //         setPoint(response);
+  //       }
+  //     } catch (error) {
+  //       console.log("error", error);
+  //     }
+  //   }
 
-    fetchPoint();
-  }, [params.slug]);
-  const hasData = useMemo(() => post && point && point?.name, [point, post]);
+  //   fetchPoint();
+  // }, [params.slug]);
+  const hasData = useMemo(() => place && place?.post, [place]);
   return (
     <>
       <Nav />
       {hasData ? (
         <>
-          <Title title={point?.name} />
+          <Title title={place?.name} />
           <PostImage
-            collection={post.collectionId}
-            filename={post.image}
-            id={post.id}
+            collection={place.expand.post.collectionId}
+            filename={place.expand.post.image}
+            id={place.expand.post.id}
           />
           <ContainerPullUp>
-            <Post content={post?.content} />
+            <Post content={place.expand.post.content} />
           </ContainerPullUp>
         </>
       ) : (
