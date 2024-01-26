@@ -34,7 +34,7 @@ export default function PostCard({
             src={url}
             width={300}
             height={300}
-            className="h-64 w-full rounded-t pb-6"
+            className="h-64 w-full rounded-t pb-6 object-cover"
             alt="location image"
           />
           <p className="w-full text-gray-600 text-xs md:text-sm px-6">
